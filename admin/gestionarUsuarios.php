@@ -32,21 +32,33 @@
 			<thead>
 				<tr>
 					<th scope="col">Usuario</th>
-					<th scope="col">Password</th>
+					<th scope="col">Email</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Apellidos</th>
+					<th scope="col">Dirección</th>
+					<th scope="col">Teléfono</th>
 				</tr>
 			</thead>
 			<tbody>
 				
 				<?php
 				foreach ($usuarios as $user) {
-					$usuario=$user['usuario'];
-					$password=$user['password'];
+					$usuario=$user['idUsuario'];
+					$email=$user['email'];
+					$nombre=$user['nombre'];
+					$apellidos=$user['apellidos'];
+					$direccion=$user['direccion'];
+					$telefono=$user['telefono'];
 
 				?>
 				
 					<tr>
 						<th scope="row"><?php echo "$usuario"; ?></th>
-						<td><?php echo "$password"; ?></td>
+						<td><?php echo "$email"; ?></td>
+						<td><?php echo "$nombre"; ?></td>
+						<td><?php echo "$apellidos"; ?></td>
+						<td><?php echo "$direccion"; ?></td>
+						<td><?php echo "$telefono"; ?></td>
 						<td><a href="actualizarUsuario.php?usuario=<?php echo "$usuario"; ?>" class="btn btn-info">Editar</a> 
 							<a href="borrarUsuario.php?usuario=<?php echo "$usuario"; ?>" onClick="return Confirmar('¿Realmente quieres borrar el usuario?');" class="btn btn-danger">Borrar</a></td>
 					</tr>

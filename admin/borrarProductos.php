@@ -21,7 +21,7 @@
 
 		$ok=borrarProducto($idProducto);
 			if ($ok!=0) {
-				echo "<div class='alert alert-success' role='alert'> El producto $idProducto ha sido borrado correctamente </div>";
+				echo "<div class='alert alert-success' role='alert'> El producto $idProducto ha sido puesto en offline </div>";
 			} 
 			else {
 				echo '<div class="alert alert-danger" role="alert"> ERROR: Producto no borrado </div>';

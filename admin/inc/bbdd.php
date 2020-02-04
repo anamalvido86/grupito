@@ -74,7 +74,7 @@ function actualizarProducto($idProducto, $nombre, $introDescripcion, $descripcio
 function borrarProducto($idProducto){
 	$con=conectarBD();
 	try{
-		$sql= "DELETE FROM productos WHERE idProducto=:idProducto";
+		$sql= "UPDATE productos SET online=0 WHERE idProducto=:idProducto";
 		$stmt=$con->prepare($sql);
 		$stmt->bindParam(':idProducto', $idProducto);
 		$stmt->execute();

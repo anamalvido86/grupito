@@ -42,6 +42,7 @@
 					<th scope="col">Imagen</th>
 					<th scope="col">Precio</th>
 					<th scope="col">Oferta</th>
+					<th scope="col">Online</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -55,6 +56,7 @@
 					$imagen=$producto['imagen'];
 					$precio=$producto['precio'];
 					$oferta=$producto['precioOferta'];
+					$online=$producto['online'];
 				?>
 				
 					<tr>
@@ -65,6 +67,7 @@
 						<td><img src="img/<?php echo "$imagen"; ?>" alt="..." class="img-thumbnail"></td>
 						<td><?php echo "$precio"; ?></td>
 						<td><?php echo "$oferta"; ?></td>
+						<td><?php echo "$online"; ?></td>
 						<td><a href="actualizarProductos.php?idProducto=<?php echo "$idProducto"; ?>" class="btn btn-info">Editar</a> 
 							<a href="borrarProductos.php?idProducto=<?php echo "$idProducto"; ?>" onClick="return Confirmar('¿Realmente quieres borrar el producto?');" class="btn btn-danger">Borrar</a></td>
 					</tr>

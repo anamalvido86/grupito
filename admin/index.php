@@ -61,14 +61,14 @@ function imprimirFormulario($usuario) {
 				imprimirFormulario($usuario);
 			}
 			else {
-				//$hash=$usu['password'];
-				//if (password_verify($password, $hash)) {
+				$hash=$usu['password'];
+				if (password_verify($password, $hash)) {
 					$_SESSION["nombre"]=$usuario;
 					header("Location: menu.php");
-				//} else {
-					//echo "<div class='alert alert-danger' role='alert'> El usuario o contraseña no son correctos</div>";
-					//imprimirFormulario($usuario);
-				//}
+				} else {
+					echo "<div class='alert alert-danger' role='alert'> El usuario o contraseña no son correctos</div>";
+					imprimirFormulario($usuario);
+				}
 			}
 		}
 	}
