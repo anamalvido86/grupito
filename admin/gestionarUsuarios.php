@@ -37,6 +37,7 @@
 					<th scope="col">Apellidos</th>
 					<th scope="col">Dirección</th>
 					<th scope="col">Teléfono</th>
+					<th scope="col">Online</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -49,6 +50,7 @@
 					$apellidos=$user['apellidos'];
 					$direccion=$user['direccion'];
 					$telefono=$user['telefono'];
+					$online=$user['online'];
 
 				?>
 				
@@ -59,8 +61,11 @@
 						<td><?php echo "$apellidos"; ?></td>
 						<td><?php echo "$direccion"; ?></td>
 						<td><?php echo "$telefono"; ?></td>
+						<td><?php echo "$online"; ?></td>
 						<td><a href="actualizarUsuario.php?usuario=<?php echo "$usuario"; ?>" class="btn btn-info">Editar</a> 
+						<a href="cambiarContraseña.php?usuario=<?php echo "$usuario"; ?>" class="btn btn-dark">Cambiar Contraseña</a> 
 							<a href="borrarUsuario.php?usuario=<?php echo "$usuario"; ?>" onClick="return Confirmar('¿Realmente quieres borrar el usuario?');" class="btn btn-danger">Borrar</a></td>
+							
 					</tr>
 					
 				<?php
@@ -74,15 +79,15 @@
 		</table>
 		<nav aria-label="Page navigation example">
 			<ul class="pagination">
-				<li class="page-item <?php if ($pagina==1){echo 'disabled';} ?>"><a class="page-link" href="index.php?pagina=<?php echo $pagina-1; ?>">Anterior</a></li>
+				<li class="page-item <?php if ($pagina==1){echo 'disabled';} ?>"><a class="page-link" href="gestionarUsuarios.php?pagina=<?php echo $pagina-1; ?>">Anterior</a></li>
 				<?php
 					for ($i=1;$i<=$paginas;$i++) {
 				?>
-					<li class="page-item <?php if ($i==$pagina){echo 'active';} ?>"><a class="page-link" href="index.php?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+					<li class="page-item <?php if ($i==$pagina){echo 'active';} ?>"><a class="page-link" href="gestionarUsuarios.php?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
 				<?php
 					}
 				?>
-				<li class="page-item <?php if ($pagina==$paginas){echo 'disabled';} ?>"><a class="page-link" href="index.php?pagina=<?php echo $pagina+1; ?>">Siguiente</a></li>
+				<li class="page-item <?php if ($pagina==$paginas){echo 'disabled';} ?>"><a class="page-link" href="gestionarUsuarios.php?pagina=<?php echo $pagina+1; ?>">Siguiente</a></li>
 			</ul>
 		</nav>
 		

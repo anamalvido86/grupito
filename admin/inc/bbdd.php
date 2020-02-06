@@ -141,11 +141,11 @@ function seleccionarProductoPagina($inicio, $pagina) {
 }
 
 //Funcion para insertar usuario
-function insertarUsuario($email, $password, $nombre, $apellidos, $direccion, $telefono) {
+function insertarUsuario($email, $password, $nombre, $apellidos, $direccion, $telefono, $online) {
 	$con=conectarBD();
 	$password=password_hash($password, PASSWORD_DEFAULT);
 	try {
-		$sql="INSERT INTO usuarios(email, password, nombre, apellidos, direccion, telefono) VALUES (:email, :password, :nombre, :apellidos, :direccion, :telefono)";
+		$sql="INSERT INTO usuarios(email, password, nombre, apellidos, direccion, telefono, online) VALUES (:email, :password, :nombre, :apellidos, :direccion, :telefono, :online)";
 		$stmt=$con->prepare($sql);
 		$stmt->bindParam(':email', $email);
 		$stmt->bindParam(':password', $password);
@@ -153,6 +153,7 @@ function insertarUsuario($email, $password, $nombre, $apellidos, $direccion, $te
 		$stmt->bindParam(':apellidos', $apellidos);
 		$stmt->bindParam(':direccion', $direccion);
 		$stmt->bindParam(':telefono', $telefono);
+		$stmt->bindParam(':online', $online);
 		$stmt->execute();
 	}
 	catch (PDOException $e) {
@@ -164,11 +165,11 @@ function insertarUsuario($email, $password, $nombre, $apellidos, $direccion, $te
 }
 
 //Funcion para actualizar usuarios
-function actualizarUsuario($email, $password, $nombre, $apellidos, $direccion, $telefono) {
+function actualizarUsuario($email, $password, $nombre, $apellidos, $direccion, $telefono, $online) {
 	$con=conectarBD();
 	$password=password_hash($password, PASSWORD_DEFAULT);
 	try{
-		$sql= "UPDATE usuarios SET email=:email, password=:password, nombre=:nombre, apellidos=:apellidos, direccion=:direccion, telefono=:telefono WHERE idUsuario=:idUsuario";
+		$sql= "UPDATE usuarios SET email=:email, password=:password, nombre=:nombre, apellidos=:apellidos, direccion=:direccion, telefono=:telefono, online=:online on WHERE idUsuario=:idUsuario";
 		$stmt=$con->prepare($sql);
 		$stmt->bindParam(':idUsuario', $idUsuario);
 		$stmt->bindParam(':email', $email);
@@ -177,6 +178,7 @@ function actualizarUsuario($email, $password, $nombre, $apellidos, $direccion, $
 		$stmt->bindParam(':apellidos', $apellidos);
 		$stmt->bindParam(':direccion', $direccion);
 		$stmt->bindParam(':telefono', $telefono);
+		$stmt->bindParam(':online', $online);
 		$stmt->execute();
 	}
 	catch (PDOException $e) {
@@ -191,7 +193,7 @@ function actualizarUsuario($email, $password, $nombre, $apellidos, $direccion, $
 function borrarUsuario($idUsuario){
 	$con=conectarBD();
 	try{
-		$sql= "DELETE FROM usuarios WHERE idUsuario=:idUsuario";
+		$sql= "UPDATE usuarios SET online=0 WHERE idUsuario=:idUsuario";
 		$stmt=$con->prepare($sql);
 		$stmt->bindParam(':idUsuario', $idUsuario);
 		$stmt->execute();
@@ -221,12 +223,12 @@ function seleccionarTodosUsuarios() {
 }
 
 //Funcion para seleccionar usuario
-function seleccionarUsuario($email) {
+function seleccionarUsuario($idUsuario) {
 	$con=conectarBD();
 	try{
-		$sql= "SELECT * FROM usuarios WHERE email=:email";
+		$sql= "SELECT * FROM usuarios WHERE idUsuario=:idUsuario";
 		$stmt=$con->prepare($sql);
-		$stmt->bindParam(':email', $email);
+		$stmt->bindParam(':idUsuario', $idUsuario);
 		$stmt->execute();
 		$row=$stmt->fetch(PDO::FETCH_ASSOC);  //Como maximo cuando solo devuelve una fila
 	}

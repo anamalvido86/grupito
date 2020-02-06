@@ -26,7 +26,7 @@
 			else {
 				echo '<div class="alert alert-danger" role="alert"> ERROR: Usuario no borrado </div>';
 			}
-		echo "<p><a href='index.php?pagina=usuario' class='btn btn-primary'>Volver al listado</a></p>";
+		echo "<p><a href='gestionarUsuarios.php' class='btn btn-primary'>Volver al listado</a></p>";
 	?>
 	
 </main>
