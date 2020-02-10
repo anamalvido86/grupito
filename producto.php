@@ -1,7 +1,6 @@
-<?php require_once("inc/encabezado.php"); ?>
+<?php session_start(); ?>
 <?php require_once("inc/funciones.php"); ?>
 <?php require_once("bbdd/bbdd.php"); ?>
-
 <?php
 	$idProducto=recoge("id");
 	$producto=seleccionarProducto($idProducto);
@@ -12,6 +11,11 @@
 	$precio=$producto['precio'];
 	$precioOferta=$producto['precioOferta'];
 ?>
+<?php $pagina="productos";
+	  $titulo=$nombre;
+?>
+<?php require_once("inc/encabezado.php"); ?>
+
 
 <main role="main">
 

@@ -73,4 +73,22 @@ function seleccionarProducto($idProducto) {
 	}	
 	return $row;
 }
+
+//Funcion para seleccionar usuario
+function seleccionarUsuario($email) {
+	$con=conectarBD();
+	try{
+		$sql= "SELECT * FROM usuarios WHERE email=:email";
+		$stmt=$con->prepare($sql);
+		$stmt->bindParam(':email', $email);
+		$stmt->execute();
+		$row=$stmt->fetch(PDO::FETCH_ASSOC);  //Como maximo cuando solo devuelve una fila
+	}
+	catch (PDOException $e) {
+		echo "Error: Error al seleccionar un usuario: ".$e->getMessage();
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a').$e->getMessage(), FILE_APPEND);
+		exit;
+	}	
+	return $row;
+}
 ?>

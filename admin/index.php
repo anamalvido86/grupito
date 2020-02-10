@@ -47,7 +47,7 @@ function imprimirFormulario($usuario) {
 			$errores=$errores."<li>El campo usuario no puede estar vacío</li>";
 		}
 		if ($password=="") {
-			$errores=$errores."<li>El campo password no puede estar vacío</li>";
+			$errores=$errores."<li>El campo contraseña no puede estar vacío</li>";
 		}
 		
 		if ($errores!="") {
@@ -57,7 +57,7 @@ function imprimirFormulario($usuario) {
 		else {
 			$usu=seleccionarUsuario($usuario);
 			if (empty($usu)) {
-				echo "<div class='alert alert-danger' role='alert'> El usuario o contraseña no son correctos</div>";
+				echo "<div class='alert alert-danger' role='alert'>hola no son correctos</div>";
 				imprimirFormulario($usuario);
 			}
 			else {
@@ -66,7 +66,7 @@ function imprimirFormulario($usuario) {
 					$_SESSION["nombre"]=$usuario;
 					header("Location: menu.php");
 				} else {
-					echo "<div class='alert alert-danger' role='alert'> El usuario o contraseña no son correctos</div>";
+					echo "<div class='alert alert-danger' role='alert'> adios no son correctos</div>";
 					imprimirFormulario($usuario);
 				}
 			}
