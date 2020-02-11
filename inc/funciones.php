@@ -39,4 +39,16 @@ function mostrarProductos ($productos) {
 	</div> <!-- col rows -->
 <?php
 } //Fin de la funcion mostrarProductos
+
+function mostrarMensaje ($mensaje) {
+?>
+	<div class="jumbotron bg-transparent">
+    <div class="container">
+      <h3><?php echo $mensaje; ?></h3>
+    </div>
+  </div>
+<?php
+}
+
+
 ?>

@@ -19,6 +19,7 @@ function imprimirFormulario($usuario) {
 			<label for="password">Contraseña:</label>
 			<input type="password" class="form-control" id="password" name="password"/>
 		</div>
+		<p><a href="registrarse.php" class="text-dark"> ¿No tienes cuenta? Regístrate</a></p>
 		<button type="submit" class="btn btn-primary" name="entrar" value="entrar">Entrar</button>
 	</form>
 <?php
