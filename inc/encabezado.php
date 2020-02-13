@@ -44,6 +44,22 @@
     </style>
     <!-- Custom styles for this template -->
     <link href="./css/jumbotron.css" rel="stylesheet">
+	<?php 
+	if ($pagina=="registro") {
+	?>
+		<script src='https://www.google.com/recaptcha/api.js?render=<?php echo CLAVE_SITIO_WEB; ?>'> 
+		</script>
+		<script>
+			grecaptcha.ready(function() {
+			grecaptcha.execute('<?php echo CLAVE_SITIO_WEB; ?>', {action: 'formulario'})
+			.then(function(token) {
+			var recaptchaResponse = document.getElementById('recaptchaResponse');
+			recaptchaResponse.value = token;
+			});});
+		</script>
+	<?php
+	}
+	?>
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
