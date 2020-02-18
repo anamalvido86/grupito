@@ -1,0 +1,5 @@
+
+18 February, 2020, 5:08 pmSQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`grupito`.`pedidos`, CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`idPedido`) REFERENCES `detallepedido` (`idPedido`))
+18 February, 2020, 5:09 pmSQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`grupito`.`pedidos`, CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`idPedido`) REFERENCES `detallepedido` (`idPedido`))
+18 February, 2020, 5:11 pmSQLSTATE[23000]: Integrity constraint violation: 1048 Column 'cantidad' cannot be null
+18 February, 2020, 5:29 pmSQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUsuario' cannot be null

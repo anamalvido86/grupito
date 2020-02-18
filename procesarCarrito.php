@@ -38,6 +38,7 @@ switch ($op) {
 		
 	case "empty":
 		unset($_SESSION['carrito']);
+		unset($_SESSION['total']);
 		break;
 		
 	default:

@@ -70,6 +70,7 @@ function imprimirFormulario($usuario) {
 					else {
 						$hash=$usu['password'];
 						if (password_verify($password, $hash)) {
+							$_SESSION['email']=$usu["email"];
 							$_SESSION['usuario']=$usu["nombre"];
 							header("Location: index.php");
 						} else {

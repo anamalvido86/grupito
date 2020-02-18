@@ -116,9 +116,9 @@ function insertarUsuario($email, $password, $nombre, $apellidos, $direccion, $te
 
 //Funcion Insertar pedido
 function InsertarPedido ($idUsuario, $detallePedido, $total) {
-	$con=conectarBD();
+	$conexion=conectarBD();
 	try{
-		$conexion -> beginTransaction();
+		$conexion->beginTransaction();
 		$sql="INSERT INTO pedidos(idUsuario, total) VALUES (:idUsuario, :total)";
 		$sentencia=$conexion->prepare($sql);
 		$sentencia->bindParam(':idUsuario', $idUsuario);
@@ -126,7 +126,7 @@ function InsertarPedido ($idUsuario, $detallePedido, $total) {
 		$sentencia->execute();
 		
 		$idPedido=$conexion->lastInsertId();
-		foreach ($detallePedido as $idProducto=>$candidad) {
+		foreach ($detallePedido as $idProducto=>$cantidad) {
 			$producto= seleccionarProducto($idProducto);
 			$precio=$producto['precioOferta'];
 			$sql2="INSERT INTO detallePedido(idPedido, idProducto, cantidad, precio) VALUES (:idPedido, :idProducto, :cantidad, :precio)";

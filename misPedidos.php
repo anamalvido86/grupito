@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <?php require_once("bbdd/bbdd.php"); ?>
-<?php $pagina="misDatos";
-	  $titulo="Mis datos";
+<?php $pagina="misPedidos";
+	  $titulo="Mis pedidos";
 ?>
 <?php require_once("inc/encabezado.php"); ?>
 <?php require_once("inc/funciones.php"); ?>
@@ -11,7 +11,7 @@
   <!-- Main jumbotron for a primary marketing message or call to action -->
   <div class="jumbotron">
     <div class="container">
-      <h1 class="display-3">Mis datos</h1>
+      <h1 class="display-3">Mis pedidos</h1>
       <p><a class="btn btn-info btn-lg" href="modificarDatos.php" role="button">Modificar datos</a>
 	  <a class="btn btn-info btn-lg" href="cambiarContraseña.php" role="button">Cambiar contraseña</a></p>
     </div>

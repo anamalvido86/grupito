@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<!--<?php session_start(); ?>-->
 <?php require_once "inc/bbdd.php"; ?>
 <?php require_once "inc/funciones.php"; ?>
 <?php require_once "inc/encabezado.php"; ?>
@@ -51,9 +51,9 @@ function imprimirFormulario($email, $nombre, $apellidos, $direccion, $telefono, 
 
 <main role="main" class="container">
 <?php
-	if (!isset($_SESSION["nombre"])) {
-		header("Location:login.php");
-	}
+	//if (!isset($_SESSION["nombre"])) {
+		//header("Location:login.php");
+	//}
 ?>
 	<h1 class="mt-5">Insertar nuevo usuario</h1>
 	
