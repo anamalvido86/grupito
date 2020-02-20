@@ -13,7 +13,7 @@ function imprimirFormulario($email, $nombre, $apellidos, $direccion, $telefono) 
 	<form>
 		<div class="form-group">
 			<label for="email">Email:</label>
-			<input type="email" class="form-control" id="email" name="email" value="<?php echo $email; ?>"/>
+			<input type="email" class="form-control" id="email" name="email" readonly="readonly" value="<?php echo $email; ?>"/>
 		</div>
 		<div class="form-group">
 			<label for="nombre">Nombre:</label>
@@ -58,7 +58,6 @@ function imprimirFormulario($email, $nombre, $apellidos, $direccion, $telefono) 
 			}
 			else {
 				$email=recoge("email");
-				$password=recoge("password");
 				$nombre=recoge("nombre");
 				$apellidos=recoge("apellidos");
 				$direccion=recoge("direccion");
@@ -66,29 +65,6 @@ function imprimirFormulario($email, $nombre, $apellidos, $direccion, $telefono) 
 				
 				$errores="";
 				
-				//Validar recaptcha
-				$recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'; 
-				$recaptcha_secret = CLAVE_SECRETA; 
-				$recaptcha_response = recoge('recaptcha_response'); 
-				$recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response); 
-				$recaptcha = json_decode($recaptcha); 
-
-				if($recaptcha->score <= 0.7){
-					$errores=$errores."<li>Detectado robot</li>";
-				}
-
-				$usuario=seleccionarUsuario($email);
-				
-				if (!empty($usuario)) {
-					$errores=$errores."<li>El usuario ya existe</li>";
-				}
-	
-				if ($email=="") {
-					$errores=$errores."<li>El campo email no puede estar vacío</li>";
-				}
-				if ($password=="") {
-					$errores=$errores."<li>El campo password no puede estar vacío</li>";
-				}
 				if ($nombre=="") {
 					$errores=$errores."<li>El campo nombre no puede estar vacío</li>";
 				}
@@ -107,13 +83,13 @@ function imprimirFormulario($email, $nombre, $apellidos, $direccion, $telefono) 
 					imprimirFormulario($email, $nombre, $apellidos, $direccion, $telefono);
 				}
 				else {
-					$usuario=insertarUsuario($email, $password, $nombre, $apellidos, $direccion, $telefono);
+					$usuario=actualizarUsuario($email, $nombre, $apellidos, $direccion, $telefono);
 					if ($usuario!=0) {
-						echo "<div class='alert alert-success' role='alert'> El usuario $usuario ha sido creado correctamente </div>";
-						header('Location:index.php');
+						echo "<div class='alert alert-success' role='alert'> El usuario ha sido modificado correctamente </div>";
+						echo "<p><a href='misDatos.php' class='btn btn-primary'>Volver a mis datos</a></p>";
 					} 
 					else {
-						echo '<div class="alert alert-danger" role="alert"> ERROR: Usuario no insertado </div>';
+						echo '<div class="alert alert-danger" role="alert"> ERROR: Usuario no actualizado </div>';
 						imprimirFormulario($email, $nombre, $apellidos, $direccion, $telefono);
 					}
 				}

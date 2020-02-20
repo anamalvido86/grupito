@@ -147,4 +147,62 @@ function InsertarPedido ($idUsuario, $detallePedido, $total) {
 	}	
 	return $idPedido;
 }
+
+//Funcion para actualizar usuarios
+function actualizarUsuario($email, $nombre, $apellidos, $direccion, $telefono) {
+	$con=conectarBD();
+	try{
+		$sql= "UPDATE usuarios SET nombre=:nombre, apellidos=:apellidos, direccion=:direccion, telefono=:telefono WHERE email=:email";
+		$stmt=$con->prepare($sql);
+		$stmt->bindParam(':email', $email);
+		$stmt->bindParam(':nombre', $nombre);
+		$stmt->bindParam(':apellidos', $apellidos);
+		$stmt->bindParam(':direccion', $direccion);
+		$stmt->bindParam(':telefono', $telefono);
+		$stmt->execute();
+	}
+	catch (PDOException $e) {
+		echo "Error: Error al actualizar usuario: ".$e->getMessage();
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a').$e->getMessage(), FILE_APPEND);
+		exit;
+	}	
+	return $stmt->rowCount();
+}
+
+//Funcion para actualizar contraseña usuarios
+function actualizarContraseña($email, $password) {
+	$con=conectarBD();
+	$password=password_hash($password, PASSWORD_DEFAULT);
+	try{
+		$sql= "UPDATE usuarios SET password=:password WHERE email=:email";
+		$stmt=$con->prepare($sql);
+		$stmt->bindParam(':email', $email);
+		$stmt->bindParam(':password', $password);
+		$stmt->execute();
+	}
+	catch (PDOException $e) {
+		echo "Error: Error al actualizar usuario: ".$e->getMessage();
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a').$e->getMessage(), FILE_APPEND);
+		exit;
+	}	
+	return $stmt->rowCount();
+}
+
+//Funcion selecccionar todos los pedidos de un usuario
+function seleccionarPedidosUsuario ($idUsuario) {
+	$con=conectarBD();
+	try {
+		$sql ="SELECT * FROM pedidos WHERE idUsuario=:idUsuario";
+		$stmt=$con->prepare($sql);
+		$stmt->bindParam(':idUsuario', $idUsuario);
+		$stmt->execute();
+		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC); //Cuando devuelve o puede devolver mas de una fila
+	}
+	catch (PDOException $e) {
+		echo "Error: Error al seleccionar pedidos de un usuario: ".$e->getMessage();
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a').$e->getMessage(), FILE_APPEND);
+		exit;
+	}	
+	return $rows;
+}
 ?>

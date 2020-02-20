@@ -12,41 +12,59 @@
   <div class="jumbotron">
     <div class="container">
       <h1 class="display-3">Mis pedidos</h1>
-      <p><a class="btn btn-info btn-lg" href="modificarDatos.php" role="button">Modificar datos</a>
-	  <a class="btn btn-info btn-lg" href="cambiarContraseña.php" role="button">Cambiar contraseña</a></p>
     </div>
   </div>
 
+   <?php
+	$email=$_SESSION['email'];
+	$usuario=seleccionarUsuario($email);
+	$idUsuario=$usuario['idUsuario'];
+	
+	$pedidos=seleccionarPedidosUsuario($idUsuario);
+	if (empty($pedidos)) {
+		$mensaje="No tienes ningún pedido";
+		mostrarMensaje($mensaje);
+	}
+	else {
+	
+  ?>
   <div class="container">
+		<div class="row px-5">
+			<table class="table">
+			  <thead class="thead-dark">
+				<tr>
+				  <th scope="col">Pedido</th>
+				  <th scope="col" class="text-center">Fecha</th>
+				  <th scope="col" class="text-center">Total</th>
+				   <th scope="col" class="text-center">Estado</th>
+				   <th></th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<?php
+					foreach ($pedidos as $pedido) {
+						$idPedido=$pedido['idPedido'];
+						$fecha=$pedido['fecha'];
+						$total=$pedido['total'];
+						$estado=$pedido['estado'];
+				?>
+						<tr>
+						  <th scope="row"> <?php echo "$idPedido"; ?> </th>
+						  <td class="text-center"><?php echo "$fecha"; ?></td>
+						  <td class="text-center"><?php echo "$total"; ?></td>
+						  <td class="text-center"><?php echo "$estado"; ?></td>
+						  <td><a href="detallePedido.php?id=<?php echo "$idPedido"; ?>" class="text-info">Ver detalle</a></td>
+						</tr>
+				<?php
+					}
+				?>
+			  </tbody>
+			</table>
+		</div>
+	</div>
 	<?php
-		$email=$_SESSION['email'];
-		$usuario=seleccionarUsuario($email);
-		
-		$email=$usuario['email'];
-		$nombre=$usuario['nombre'];
-		$apellidos=$usuario['apellidos'];
-		$direccion=$usuario['direccion'];
-		$telefono=$usuario['telefono'];
-		
+	}
 	?>
-		<dl class="row">
-		  <dt class="col-sm-3">Nombre</dt>
-		  <dd class="col-sm-9"><?php echo $nombre; ?></dd>
-
-		  <dt class="col-sm-3">Apellidos</dt>
-		  <dd class="col-sm-9"><?php echo $apellidos; ?></dd>
-
-		  <dt class="col-sm-3">Email</dt>
-		  <dd class="col-sm-9"><?php echo $email; ?></dd>
-
-		  <dt class="col-sm-3">Telefono</dt>
-		  <dd class="col-sm-9"><?php echo $telefono; ?></dd>
-
-		  <dt class="col-sm-3">Dirección</dt>
-		  <dd class="col-sm-9"><address><?php echo $direccion; ?></address></dd>
-		</dl>
-  </div> <!-- /container -->
-
 </main>
 
 <?php require_once("inc/pie.php"); ?>

@@ -9,6 +9,9 @@
 <main role="main">
 
 <?php
+	if (!isset($_SESSION["carrito"])) {
+		header("Location:index.php");
+	}
 	if (!isset($_SESSION["usuario"])) {
 		header("Location:login.php");
 	}
