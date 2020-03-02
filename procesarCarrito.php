@@ -45,5 +45,5 @@ switch ($op) {
 		header("Location: index.php");
 		
 } //Fin del switch
-header("Location: productos.php");
+header("Location: carrito.php");
 ?>
