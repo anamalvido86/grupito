@@ -12,7 +12,7 @@
   <div class="jumbotron">
     <div class="container">
       <h1 class="display-3">Tu carrito de la compra</h1>
-      <p><a class="btn btn-primary btn-lg" href="productos.php" role="button">Seguir comprando »</a></p>
+      <p><a class="btn btn-info btn-lg" href="productos.php" role="button">Seguir comprando »</a></p>
     </div>
   </div>
   <?php
@@ -62,8 +62,8 @@
 			  </tfoot>
 			</table>
 			
-			<a class="btn btn-danger" href="procesarCarrito.php?id=<?php echo $id; ?>&op=empty">Vaciar carrito</a>
-			<a href="confirmarPedido.php" class="btn btn-success ml-3"> Confirmar pedido </a>
+			<p> <a class="btn btn-danger" href="procesarCarrito.php?id=<?php echo $id; ?>&op=empty">Vaciar carrito</a>
+			<a href="confirmarPedido.php" class="btn btn-success ml-3"> Confirmar pedido </a></p>
 			
 		</div>
 	</div>
