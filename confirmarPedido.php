@@ -6,6 +6,7 @@
 <?php require_once("inc/encabezado.php"); ?>
 <?php require_once("inc/funciones.php"); ?>
 
+
 <main role="main">
 
 <?php

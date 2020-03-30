@@ -3,3 +3,10 @@
 6 February, 2020, 1:42 pmSQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1
 18 February, 2020, 4:25 pmSQLSTATE[42S22]: Column not found: 1054 Unknown column 'online' in 'field list'
 18 February, 2020, 4:26 pmSQLSTATE[42S22]: Column not found: 1054 Unknown column 'online' in 'field list'
+30 March, 2020, 4:41 pmSQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on WHERE idUsuario=NULL' at line 1
+30 March, 2020, 4:42 pmSQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on WHERE idUsuario=NULL' at line 1
+30 March, 2020, 4:42 pmSQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on WHERE idUsuario=NULL' at line 1
+30 March, 2020, 4:42 pmSQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on WHERE idUsuario=NULL' at line 1
+30 March, 2020, 4:42 pmSQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on WHERE idUsuario=NULL' at line 1
+30 March, 2020, 4:43 pmSQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on WHERE idUsuario=NULL' at line 1
+30 March, 2020, 4:44 pmSQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on WHERE email='mauro@gmail.com'' at line 1

@@ -3,6 +3,7 @@
 <?php require_once "inc/funciones.php"; ?>
 <?php require_once "inc/encabezado.php"; ?>
 
+
 <?php
 function imprimirFormulario($email) {
 ?>
@@ -49,7 +50,7 @@ function imprimirFormulario($email) {
 			header("Location: gestionarUsuarios.php");
 			exit(); //die();
 		}
-		$user=seleccionarUsuario($usuario);
+		$user=seleccionarUsuarioId($usuario);
 		
 		if (empty($user)) {
 			header("Location: gestionarUsuarios.php");
@@ -64,13 +65,7 @@ function imprimirFormulario($email) {
 		$newPassword1=recoge("newPassword1");
 		$newPassword2=recoge("newPassword2");
 		
-		$user=seleccionarUsuario($usuario);
-		$nombre=$user["nombre"];
-		$apellidos=$user["nombre"];
-		$direccion=$user["direccion"];
-		$telefono=$user["telefono"];
-		$online=$user["online"];
-		
+		$user=seleccionarUsuario($email);
 		$hash=$user['password'];
 
 		$errores="";
@@ -87,10 +82,10 @@ function imprimirFormulario($email) {
 			imprimirFormulario($email);
 		}
 		else {
-			$ok=actualizarUsuario($email, $newPassword1, $nombre, $apellidos, $direccion, $telefono, $online);
+			$ok=actualizarContraseña($email, $password);
 			if ($ok!=0) {
-				echo "<div class='alert alert-success' role='alert'> El usuario $usuario ha sido actualizado correctamente </div>";
-				echo "<p><a href='index.php?pagina=usuario' class='btn btn-primary'>Volver al listado</a></p>";
+				echo "<div class='alert alert-success' role='alert'> El usuario ha sido actualizado correctamente </div>";
+				echo "<p><a href='gestionarUsuarios.php' class='btn btn-primary'>Volver al listado</a></p>";
 			} 
 			else {
 				echo '<div class="alert alert-danger" role="alert"> ERROR: Usuario no actualizado </div>';

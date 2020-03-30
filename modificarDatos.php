@@ -39,6 +39,11 @@ function imprimirFormulario($email, $nombre, $apellidos, $direccion, $telefono) 
 }
 ?>
 
+<?php
+	if (!isset($_SESSION['usuario'])) {
+		header('Location:index.php');
+	}
+?>
 <main role="main">
 
   <!-- Main jumbotron for a primary marketing message or call to action -->

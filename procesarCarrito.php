@@ -2,8 +2,11 @@
 <?php require_once("bbdd/bbdd.php"); ?>
 <?php require_once("inc/funciones.php"); ?>
 
-
 <?php
+	if (!isset($_SESSION['usuario'])) {
+		header('Location:index.php');
+	}
+	
 $idProducto=recoge('id');
 $op=recoge("op");
 
@@ -17,6 +20,10 @@ if (empty($producto)) {
 	header("Location: index.php");
 }
 
+if (empty($_SESSION['carrito'])) {
+	$_SESSION['numProductos']=0;
+}
+
 switch ($op) {
 	case "add":
 		if (isset($_SESSION['carrito'][$idProducto])) {
@@ -25,6 +32,7 @@ switch ($op) {
 		else {
 			$_SESSION['carrito'][$idProducto]=1;
 		}
+		$_SESSION['numProductos']++;
 		break;
 		
 	case "remove":
@@ -33,12 +41,14 @@ switch ($op) {
 			if ($_SESSION['carrito'][$idProducto]<=0) {
 				unset($_SESSION['carrito'][$idProducto]);
 			}
+			$_SESSION['numProductos']--;
 		}
 		break;
 		
 	case "empty":
 		unset($_SESSION['carrito']);
 		unset($_SESSION['total']);
+		unset($_SESSION['numProductos']);
 		break;
 		
 	default:

@@ -20,7 +20,7 @@ function imprimirFormulario($usuario) {
 			<input type="password" class="form-control" id="password" name="password"/>
 		</div>
 		<p><a href="registro.php" class="text-dark"> ¿No tienes cuenta? Regístrate</a></p>
-		<button type="submit" class="btn btn-primary" name="entrar" value="entrar">Entrar</button>
+		<button type="submit" class="btn btn-info" name="entrar" value="entrar">Entrar</button>
 	</form>
 <?php
 }
@@ -70,9 +70,15 @@ function imprimirFormulario($usuario) {
 					else {
 						$hash=$usu['password'];
 						if (password_verify($password, $hash)) {
-							$_SESSION['email']=$usu["email"];
-							$_SESSION['usuario']=$usu["nombre"];
-							header("Location: index.php");
+							if ($usu['online']==TRUE) {
+								$_SESSION['email']=$usu["email"];
+								$_SESSION['usuario']=$usu["nombre"];
+								header("Location: index.php");
+							}
+							else {
+								echo "<div class='alert alert-danger' role='alert'> El usuario está desactivado</div>";
+							imprimirFormulario($usuario);
+							}
 						} else {
 							echo "<div class='alert alert-danger' role='alert'> El usuario o contraseña no son correctos</div>";
 							imprimirFormulario($usuario);

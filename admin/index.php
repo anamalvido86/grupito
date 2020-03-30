@@ -57,16 +57,22 @@ function imprimirFormulario($usuario) {
 		else {
 			$usu=seleccionarUsuario($usuario);
 			if (empty($usu)) {
-				echo "<div class='alert alert-danger' role='alert'>hola no son correctos</div>";
+				echo "<div class='alert alert-danger' role='alert'>Los datos no son correctos</div>";
 				imprimirFormulario($usuario);
 			}
 			else {
 				$hash=$usu['password'];
-				if (password_verify($password, $hash)) {
-					$_SESSION["nombre"]=$usuario;
-					header("Location: menu.php");
+				if ($usu['admin']==TRUE and $usu['online']==TRUE) {
+					if (password_verify($password, $hash)) {
+						$_SESSION["nombre"]=$usuario;
+						header("Location: menu.php");
+					}
+					else {
+						echo "<div class='alert alert-danger' role='alert'> Los datos no son correctos</div>";
+						imprimirFormulario($usuario);
+					}
 				} else {
-					echo "<div class='alert alert-danger' role='alert'> adios no son correctos</div>";
+					echo "<div class='alert alert-danger' role='alert'> Los datos no son correctos</div>";
 					imprimirFormulario($usuario);
 				}
 			}

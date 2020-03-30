@@ -1,0 +1,9 @@
+Usuario normal:
+
+ana@gmail.com
+abc123.
+
+Usuario administrador:
+
+adri@gmail.com
+abc123.

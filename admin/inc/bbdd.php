@@ -141,11 +141,11 @@ function seleccionarProductoPagina($inicio, $pagina) {
 }
 
 //Funcion para insertar usuario
-function insertarUsuario($email, $password, $nombre, $apellidos, $direccion, $telefono, $online) {
+function insertarUsuario($email, $password, $nombre, $apellidos, $direccion, $telefono, $online, $admin) {
 	$con=conectarBD();
 	$password=password_hash($password, PASSWORD_DEFAULT);
 	try {
-		$sql="INSERT INTO usuarios(email, password, nombre, apellidos, direccion, telefono, online) VALUES (:email, :password, :nombre, :apellidos, :direccion, :telefono, :online)";
+		$sql="INSERT INTO usuarios(email, password, nombre, apellidos, direccion, telefono, online, admin) VALUES (:email, :password, :nombre, :apellidos, :direccion, :telefono, :online, :admin)";
 		$stmt=$con->prepare($sql);
 		$stmt->bindParam(':email', $email);
 		$stmt->bindParam(':password', $password);
@@ -154,6 +154,7 @@ function insertarUsuario($email, $password, $nombre, $apellidos, $direccion, $te
 		$stmt->bindParam(':direccion', $direccion);
 		$stmt->bindParam(':telefono', $telefono);
 		$stmt->bindParam(':online', $online);
+		$stmt->bindParam(':admin', $admin);
 		$stmt->execute();
 	}
 	catch (PDOException $e) {
@@ -165,20 +166,37 @@ function insertarUsuario($email, $password, $nombre, $apellidos, $direccion, $te
 }
 
 //Funcion para actualizar usuarios
-function actualizarUsuario($email, $password, $nombre, $apellidos, $direccion, $telefono, $online) {
+function actualizarUsuario($email, $nombre, $apellidos, $direccion, $telefono, $online, $admin) {
 	$con=conectarBD();
-	$password=password_hash($password, PASSWORD_DEFAULT);
 	try{
-		$sql= "UPDATE usuarios SET email=:email, password=:password, nombre=:nombre, apellidos=:apellidos, direccion=:direccion, telefono=:telefono, online=:online on WHERE idUsuario=:idUsuario";
+		$sql= "UPDATE usuarios SET nombre=:nombre, apellidos=:apellidos, direccion=:direccion, telefono=:telefono, online=:online, admin=:admin WHERE email=:email";
 		$stmt=$con->prepare($sql);
-		$stmt->bindParam(':idUsuario', $idUsuario);
 		$stmt->bindParam(':email', $email);
-		$stmt->bindParam(':password', $password);
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':apellidos', $apellidos);
 		$stmt->bindParam(':direccion', $direccion);
 		$stmt->bindParam(':telefono', $telefono);
 		$stmt->bindParam(':online', $online);
+		$stmt->bindParam(':admin', $admin);
+		$stmt->execute();
+	}
+	catch (PDOException $e) {
+		echo "Error: Error al actualizar usuario: ".$e->getMessage();
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a').$e->getMessage(), FILE_APPEND);
+		exit;
+	}	
+	return $stmt->rowCount();
+}
+
+//Funcion para actualizar contraseña usuarios
+function actualizarContraseña($email, $password) {
+	$con=conectarBD();
+	$password=password_hash($password, PASSWORD_DEFAULT);
+	try{
+		$sql= "UPDATE usuarios SET password=:password WHERE email=:email";
+		$stmt=$con->prepare($sql);
+		$stmt->bindParam(':email', $email);
+		$stmt->bindParam(':password', $password);
 		$stmt->execute();
 	}
 	catch (PDOException $e) {
@@ -223,7 +241,24 @@ function seleccionarTodosUsuarios() {
 }
 
 //Funcion para seleccionar usuario
-function seleccionarUsuario($idUsuario) {
+function seleccionarUsuario($email) {
+	$con=conectarBD();
+	try{
+		$sql= "SELECT * FROM usuarios WHERE email=:email";
+		$stmt=$con->prepare($sql);
+		$stmt->bindParam(':email', $email);
+		$stmt->execute();
+		$row=$stmt->fetch(PDO::FETCH_ASSOC);  //Como maximo cuando solo devuelve una fila
+	}
+	catch (PDOException $e) {
+		echo "Error: Error al seleccionar un usuario: ".$e->getMessage();
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a').$e->getMessage(), FILE_APPEND);
+		exit;
+	}	
+	return $row;
+}
+//Funcion para seleccionar usuario por ID
+function seleccionarUsuarioId($idUsuario) {
 	$con=conectarBD();
 	try{
 		$sql= "SELECT * FROM usuarios WHERE idUsuario=:idUsuario";
@@ -257,5 +292,95 @@ function seleccionarUsuarioPagina($inicio, $pagina) {
 		exit;
 	}	
 	return $rows;
+}
+
+//Funcion para seleccionar pedidos por pagina
+function seleccionarPedidoPagina($inicio, $pagina) {
+	$con=conectarBD();
+	try{
+		$sql= "SELECT * FROM pedidos LIMIT :inicio, :pagina";
+		$stmt=$con->prepare($sql);
+		$stmt->bindParam(':inicio', $inicio, PDO::PARAM_INT); //Cuando necesite un valor entero hay que ponerlo
+		$stmt->bindParam(':pagina', $pagina, PDO::PARAM_INT);
+		$stmt->execute();
+		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC); //Cuando devuelve o puede devolver mas de una fila
+	}
+	catch (PDOException $e) {
+		echo "Error: Error al seleccionar pedidos: ".$e->getMessage();
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a').$e->getMessage(), FILE_APPEND);
+		exit;
+	}	
+	return $rows;
+}
+
+//Funcion selecccionar todos los pedidos
+function seleccionarTodosPedidos () {
+	$con=conectarBD();
+	try {
+		$sql ="SELECT * FROM pedidos";
+		$stmt=$con->query($sql);
+		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC); //Cuando devuelve o puede devolver mas de una fila
+	}
+	catch (PDOException $e) {
+		echo "Error: Error al seleccionar todos los pedidos: ".$e->getMessage();
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a').$e->getMessage(), FILE_APPEND);
+		exit;
+	}	
+	return $rows;
+}
+
+//Funcion selecccionar un pedido
+function seleccionarPedido ($idPedido) {
+	$con=conectarBD();
+	try {
+		$sql ="SELECT * FROM pedidos WHERE idPedido=:idPedido";
+		$stmt=$con->prepare($sql);
+		$stmt->bindParam(':idPedido', $idPedido);
+		$stmt->execute();
+		$row=$stmt->fetch(PDO::FETCH_ASSOC);  //Como maximo cuando solo devuelve una fila
+	}
+	catch (PDOException $e) {
+		echo "Error: Error al seleccionar un pedido: ".$e->getMessage();
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a').$e->getMessage(), FILE_APPEND);
+		exit;
+	}	
+	return $row;
+}
+
+//Funcion selecccionar todos los detalles de un pedido
+function seleccionarDetallePedido($idPedido) {
+	$con=conectarBD();
+	try {
+		$sql ="SELECT * FROM detallePedido WHERE idPedido=:idPedido";
+		$stmt=$con->prepare($sql);
+		$stmt->bindParam(':idPedido', $idPedido);
+		$stmt->execute();
+		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC); //Cuando devuelve o puede devolver mas de una fila
+	}
+	catch (PDOException $e) {
+		echo "Error: Error al seleccionar los detalles de un pedido: ".$e->getMessage();
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a').$e->getMessage(), FILE_APPEND);
+		exit;
+	}	
+	return $rows;
+}
+
+//Funcion para actualizar usuarios
+function actualizarEstado($idPedido, $estado) {
+	$con=conectarBD();
+	try{
+		$sql= "UPDATE pedidos SET estado=:estado WHERE idPedido=:idPedido";
+		$stmt=$con->prepare($sql);
+		$stmt->bindParam(':idPedido', $idPedido);
+		$stmt->bindParam(':estado', $estado);
+
+		$stmt->execute();
+	}
+	catch (PDOException $e) {
+		echo "Error: Error al actualizar estado: ".$e->getMessage();
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a').$e->getMessage(), FILE_APPEND);
+		exit;
+	}	
+	return $stmt->rowCount();
 }
 ?>

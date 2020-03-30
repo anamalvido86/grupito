@@ -4,7 +4,7 @@
 <?php require_once "inc/encabezado.php"; ?>
 
 <?php
-function imprimirFormulario ($idUsuario, $email, $nombre, $apellidos, $direccion, $telefono) {
+function imprimirFormulario ($idUsuario, $email, $nombre, $apellidos, $direccion, $telefono, $online, $admin) {
 ?>
 	<form>
 		<div class="form-group">
@@ -31,6 +31,26 @@ function imprimirFormulario ($idUsuario, $email, $nombre, $apellidos, $direccion
 			<label for="telefono">Telefono:</label>
 			<input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $telefono; ?>"/>
 		</div>
+		<div class="form-group">Online:
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" name="online" id="1" value="1" <?php if ($online=='1') {echo "checked='checked'";} ?>/>
+				<label class="form-check-label" for="1">Si</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" name="online" id="0" value="0" <?php if ($online=='0') {echo "checked='checked'";} ?>/>
+				<label class="form-check-label" for="0">No</label>
+			</div>
+		</div>
+		<div class="form-group">Admin:
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" name="admin" id="1" value="1" <?php if ($admin=='1') {echo "checked='checked'";} ?>/>
+				<label class="form-check-label" for="1">Si</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" name="admin" id="0" value="0" <?php if ($admin=='0') {echo "checked='checked'";} ?>/>
+				<label class="form-check-label" for="0">No</label>
+			</div>
+		</div>
 		<button type="submit" class="btn btn-primary" name="guardar" value="guardar">Guardar</button>
 		<a href='gestionarUsuarios.php' class='btn btn-danger'>Cancelar</a>
 	</form>
@@ -49,102 +69,78 @@ function imprimirFormulario ($idUsuario, $email, $nombre, $apellidos, $direccion
 	if (!isset($_REQUEST['guardar'])) {
 		
 		$usuario=recoge("usuario");
-		$pag=recoge("pag");
 		if ($usuario==""){
 			header("Location: gestionarUsuarios.php");
 			exit(); //die();
 		}
-		$user=seleccionarUsuario($usuario);
+		
+		$user=seleccionarUsuarioId($usuario);
 		
 		if (empty($user)) {
 			header("Location: gestionarUsuarios.php");
 			exit();
 		}
 		
-		if ($pag==""){
-			header("Location: gestionarUsuarios.php");
-			exit(); //die();
-		}
-		
-		if ($pag=="editar") {
-			imprimirFormulario ($idUsuario, $email, $nombre, $apellidos, $direccion, $telefono);
-		}
-		else {
-			$idUsuario=recoge("idUsuario");
-			$email=recoge("email");
-			$nombre=recoge("nombre");
-			$apellidos=recoge("apellidos");
-			$direccion=recoge("direccion");
-			$telefono=recoge("telefono");
-			
-			$errores="";
-		
-			$usuario=seleccionarUsuario($email);
-		
-			if (!empty($usuario)) {
-				$errores=$errores."<li>El usuario ya existe</li>";
-			}
-		
-			if ($email=="") {
-				$errores=$errores."<li>El campo email no puede estar vacío</li>";
-			}
-			if ($password=="") {
-				$errores=$errores."<li>El campo password no puede estar vacío</li>";
-			}
-			if ($nombre=="") {
-				$errores=$errores."<li>El campo nombre no puede estar vacío</li>";
-			}
-			if ($apellidos=="") {
-				$errores=$errores."<li>El campo apellidos no puede estar vacío</li>";
-			}
-			if ($direccion=="") {
-				$errores=$errores."<li>El campo direccion no puede estar vacío</li>";
-			}	
-			if ($telefono=="") {
-				$errores=$errores."<li>El campo telefono no puede estar vacío</li>";
-			}
-		
-			if ($errores!="") {
-				echo "<h2>Errores:</h2> <ul>$errores</ul>";
-				imprimirFormulario($email, $nombre, $apellidos, $direccion, $telefono);
-			}
-		}
-	}
+		$idUsuario=$user["idUsuario"];
+		$email=$user["email"];
+		$nombre=$user["nombre"];
+		$apellidos=$user["apellidos"];
+		$direccion=$user["direccion"];
+		$telefono=$user["telefono"];
+		$online=$user["online"];
+		$admin=$user["admin"];
+		imprimirFormulario ($idUsuario, $email, $nombre, $apellidos, $direccion, $telefono, $online, $admin);
+	}		
 	else {
-		$usuario=recoge("usuario");
-		$password=recoge("password");
-		$newPassword1=recoge("newPassword1");
-		$newPassword2=recoge("newPassword2");
+		$idUsuario=recoge("idUsuario");
+		$email=recoge("email");
+		$nombre=recoge("nombre");
+		$apellidos=recoge("apellidos");
+		$direccion=recoge("direccion");
+		$telefono=recoge("telefono");
+		$online=recoge("online");
+		$admin=recoge("admin");
 		
-		$user=seleccionarUsuario($usuario);
-		$hash=$user['password'];
-
 		$errores="";
-
-		if (!password_verify($password, $hash)) {
-			$errores=$errores."<li>La contraseña anterior no es correcta</li>";
+		
+		$usuario=seleccionarUsuario($email);
+		
+		if ($nombre=="") {
+			$errores=$errores."<li>El campo nombre no puede estar vacío</li>";
 		}
-		if ($newPassword2!=$newPassword1 or $newPassword1=="") {
-			$errores=$errores."<li>La nueva contraseña no coincide</li>";
+		if ($apellidos=="") {
+			$errores=$errores."<li>El campo apellidos no puede estar vacío</li>";
+		}
+		if ($direccion=="") {
+			$errores=$errores."<li>El campo direccion no puede estar vacío</li>";
+		}	
+		if ($telefono=="") {
+			$errores=$errores."<li>El campo telefono no puede estar vacío</li>";
+		}
+		if ($online=="") {
+			$errores=$errores."<li>El campo online no puede estar vacío</li>";
+		}
+		if ($admin=="") {
+			$errores=$errores."<li>El campo admin no puede estar vacío</li>";
 		}
 		
 		if ($errores!="") {
 			echo "<h2>Errores:</h2> <ul>$errores</ul>";
-			imprimirFormulario($usuario);
+			imprimirFormulario ($idUsuario, $email, $nombre, $apellidos, $direccion, $telefono, $online, $admin);
 		}
 		else {
-			$ok=actualizarUsuario($usuario, $newPassword1);
-			if ($ok!=0) {
-				echo "<div class='alert alert-success' role='alert'> El usuario $usuario ha sido actualizado correctamente </div>";
-				echo "<p><a href='index.php?pagina=usuario' class='btn btn-primary'>Volver al listado</a></p>";
+			$usuario=actualizarUsuario($email, $nombre, $apellidos, $direccion, $telefono, $online, $admin);
+			if ($usuario!=0) {
+				echo "<div class='alert alert-success' role='alert'> El usuario ha sido modificado correctamente </div>";
+				echo "<p><a href='gestionarUsuarios.php' class='btn btn-primary'>Volver a gestionar usuarios</a></p>";
 			} 
 			else {
 				echo '<div class="alert alert-danger" role="alert"> ERROR: Usuario no actualizado </div>';
-				imprimirFormulario($usuario);
+				imprimirFormulario ($idUsuario, $email, $nombre, $apellidos, $direccion, $telefono, $online, $admin);
 			}
 		}
 	}
-	?>
+		?>
 	
 </main>
 

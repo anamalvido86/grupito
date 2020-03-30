@@ -6,3 +6,5 @@
 20 February, 2020, 1:19 pmSQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on WHERE email='ana@gmail.com'' at line 1
 20 February, 2020, 1:19 pmSQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on WHERE email='ana@gmail.com'' at line 1
 20 February, 2020, 1:19 pmSQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on WHERE email='ana@gmail.com'' at line 1
+16 March, 2020, 1:29 pmSQLSTATE[HY000] [1049] Unknown database 'grupito'
+30 March, 2020, 2:16 amSQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUsuario' cannot be null

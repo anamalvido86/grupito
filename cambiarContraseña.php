@@ -6,6 +6,11 @@
 <?php require_once("inc/encabezado.php"); ?>
 <?php require_once("inc/funciones.php"); ?>
 
+<?php
+	if (!isset($_SESSION['usuario'])) {
+		header('Location:index.php');
+	}
+?>
 
 <?php
 function imprimirFormulario($email) {

@@ -38,6 +38,7 @@
 					<th scope="col">Dirección</th>
 					<th scope="col">Teléfono</th>
 					<th scope="col">Online</th>
+					<th scope="col">Admin</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -51,6 +52,7 @@
 					$direccion=$user['direccion'];
 					$telefono=$user['telefono'];
 					$online=$user['online'];
+					$admin=$user['admin'];
 
 				?>
 				
@@ -62,6 +64,7 @@
 						<td><?php echo "$direccion"; ?></td>
 						<td><?php echo "$telefono"; ?></td>
 						<td><?php echo "$online"; ?></td>
+						<td><?php echo "$admin"; ?></td>
 						<td><a href="actualizarUsuario.php?usuario=<?php echo "$usuario"; ?>" class="btn btn-info">Editar</a> 
 						<a href="cambiarContraseña.php?usuario=<?php echo "$usuario"; ?>" class="btn btn-dark">Cambiar Contraseña</a> 
 							<a href="borrarUsuario.php?usuario=<?php echo "$usuario"; ?>" onClick="return Confirmar('¿Realmente quieres borrar el usuario?');" class="btn btn-danger">Borrar</a></td>

@@ -6,6 +6,7 @@
 <?php require_once("inc/encabezado.php"); ?>
 <?php require_once("inc/funciones.php"); ?>
 
+
 <main role="main">
 
   <!-- Main jumbotron for a primary marketing message or call to action -->

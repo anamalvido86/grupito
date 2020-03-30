@@ -15,11 +15,13 @@
 	}
 	echo "<div class='alert alert-success' role='alert'> Bienvenido ".$_SESSION["nombre"]."</div>";
 ?>
-
-	<a href="gestionarProductos.php" class="btn btn-info">Gestionar productos</a> 
-	<a href="gestionarUsuarios.php" class="btn btn-info">Gestionar Usuarios</a> 
+	<p>
+		<a href="gestionarProductos.php" class="btn btn-info">Gestionar productos</a> 
+		<a href="gestionarPedidos.php" class="btn btn-info">Gestionar Pedidos</a> 
+		<a href="gestionarUsuarios.php" class="btn btn-info">Gestionar Usuarios</a> 
+	</p>
 	
-	<a href="index.php" class="btn btn-primary">Cerrar sesión </a>
+	<p><a href="index.php" class="btn btn-primary">Cerrar sesión </a></p>
 
 </main>
 
